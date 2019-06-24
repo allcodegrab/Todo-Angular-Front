@@ -1,0 +1,138 @@
+<div class="breadcrumb">
+    <h1>Todo</h1>
+    <ul>
+        <li><a href="">Event</a></li>
+        <li>All</li>
+    </ul>
+</div>
+
+<div class="separator-breadcrumb border-top"></div>
+
+<div class="row mb-3">
+    <div class="col-md-12 mb-3">
+        <button class="btn btn-primary float-right" [routerLink]="['/event/new']">Create New Event</button>
+        <button type="button" *ngIf="multiple" class="btn btn-outline-secondary btn-rounded"(click)="deleteMultipleEvent()">Multiple Delete</button>
+    </div>
+    <div class="col-md-12">
+        <div class="card o-hidden">
+            <ngx-datatable *ngIf="events?.length" style="box-shadow: none" class="material fullscreen" [style.height]="60*events.length+60+'px'" [columnMode]="'force'"
+                [headerHeight]="50" [footerHeight]="0" [rowHeight]="60" [scrollbarH]="true" [rows]="events">
+                <ngx-datatable-column name="photo" [maxWidth]="300">
+                    <ng-template ngx-datatable-header-template>
+                        #
+                    </ng-template>
+                    <ng-template  let-rowIndex="rowIndex" ngx-datatable-cell-template let-value="value" let-row="row">
+                       <input (click)="multipleDelete()" type="checkbox" name="events{{row.todoId}}" [(ngModel)]="events[rowIndex].checked">
+                    </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column name="photo" [maxWidth]="300">
+                    <ng-template ngx-datatable-header-template>
+                        Title
+                    </ng-template>
+                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                        {{row.title}}
+                    </ng-template>
+                </ngx-datatable-column>
+
+                
+                <ngx-datatable-column [maxWidth]="300">
+                    <ng-template ngx-datatable-header-template>
+                        Description
+                    </ng-template>
+                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                        {{row.description}}
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column>
+                    <ng-template ngx-datatable-header-template>
+                       Event Date
+                    </ng-template>
+                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                        {{row.timeOfEvent | date:'medium'}}
+                    </ng-template>
+                </ngx-datatable-column>
+                
+                <ngx-datatable-column [width]="120">
+                    <ng-template ngx-datatable-header-template>
+                        Actions
+                    </ng-template>
+                    <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+                        <button class="btn btn-outline-danger mr-2" (click)="updateevent(row.todoId, updateModal)">
+                            Update
+                        </button>
+                        <button class="btn btn-outline-danger" (click)="deleteevent(row.todoId, deleteConfirmModal)">
+                            Delete
+                        </button>
+                    </ng-template>
+                </ngx-datatable-column>
+            </ngx-datatable>
+        </div>
+    </div>
+</div>
+
+<ng-template #deleteConfirmModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-title">event deletion</h4>
+        <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <p><strong>Are you sure?</strong></p>
+        
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary btn-rounded" (click)="modal.dismiss('cancel')">Cancel</button>
+        <button type="button" ngbAutofocus class="btn btn-wide btn-danger btn-rounded" (click)="modal.close('Ok')">Ok</button>
+    </div>
+</ng-template>
+
+
+<ng-template #updateModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-title">event upadtion</h4>
+        <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div>
+             <form [formGroup]="eventForm">
+                       
+                       
+                        <div class="row mb-5">
+                            <div class="col-md-6" >
+                                <h5 class="font-weight-bold">Title</h5>
+                                <div class="col-md-10 form-group mb-3 pl-0">
+                                    <input required formControlName="title" type="text" class="form-control" id="billFrom"
+                                        placeholder=" Event title">
+                                </div>
+                                <div class="col-md-10 form-group mb-3 pl-0">
+                                    <h5 class="font-weight-bold">Event Date</h5>
+                                    <div class="input-group">
+                                           <input type="text" class="form-control text-right"formControlName="timeOfEvent" [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1" placeholder="Event Time">
+                                            <owl-date-time #dt1></owl-date-time>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 text-right" >
+                                <h5 class="font-weight-bold">Description</h5>
+                                
+                                <div class="col-md-10 offset-md-2 form-group mb-3 pr-0">
+                                    <textarea required formControlName="description" class="form-control text-right" id=""
+                                        placeholder="Event Description "></textarea>
+                                </div>
+                            </div>
+                        </div>
+                      
+                    </form>
+                </div>
+                
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary btn-rounded" (click)="modal.dismiss('cancel')">Cancel</button>
+        <button type="button" ngbAutofocus class="btn btn-wide btn-danger btn-rounded" (click)="modal.close('Ok')">Update</button>
+    </div>
+</ng-template>

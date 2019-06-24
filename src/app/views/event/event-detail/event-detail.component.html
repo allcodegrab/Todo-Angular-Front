@@ -1,0 +1,59 @@
+<div class="breadcrumb">
+    <h1>Todo</h1>
+    <ul>
+        <li><a href="">Event</a></li>
+        <li>New</li>
+    </ul>
+</div>
+
+<div class="separator-breadcrumb border-top"></div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                
+               
+                <div>
+                    <form [formGroup]="eventForm">
+                       
+                       
+                        <div class="row mb-5">
+                            <div class="col-md-6" >
+                                <h5 class="font-weight-bold">Title</h5>
+                                <div class="col-md-10 form-group mb-3 pl-0">
+                                    <input required formControlName="title" type="text" class="form-control" id="billFrom"
+                                        placeholder=" Event title">
+                                </div>
+                                <div class="col-md-10 form-group mb-3 pl-0">
+                                    <h5 class="font-weight-bold">Event Date</h5>
+                                    <div class="input-group">
+                                       
+                                          <input class="form-control text-right"formControlName="timeOfEvent" [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1" placeholder="Event Time">
+                                            <owl-date-time #dt1 ></owl-date-time>
+                                                                                   
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 text-right" >
+                                <h5 class="font-weight-bold">Description</h5>
+                                
+                                <div class="col-md-10 offset-md-2 form-group mb-3 pr-0">
+                                    <textarea required formControlName="description" class="form-control text-right" id=""
+                                        placeholder="Event Description "></textarea>
+                                </div>
+                            </div>
+                        </div>
+                      
+                    </form>
+                </div>
+                <div class="d-flex mb-5" >
+                    <span class="m-auto"></span>
+                    
+                    <button class="btn btn-outline-primary"  (click)="saveevent()">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
