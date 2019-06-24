@@ -70,13 +70,13 @@ export class eventDetailComponent implements OnInit {
                     .subscribe((savedevent: any) => {
                        
                             this.router.navigateByUrl('/event');
-                            this.toastr.success('Event Saved!', 'Success!', { timeOut: 3000 });
+                            this.toastr.success('Event Saved!', 'Success!', { progressBar: true });
                         
                     });
             });
 
         }else{
-                this.toastr.warning('Choose Time greater than from now!', 'Warning!', { timeOut: 3000 });
+                this.toastr.warning('Choose Time greater than from now!', 'Warning!', { progressBar: true });
         }
       
 

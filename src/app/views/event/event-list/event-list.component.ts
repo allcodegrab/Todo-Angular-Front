@@ -72,7 +72,7 @@ export class eventListComponent implements OnInit {
 
                       this.dl.deleteevent(id)
                     .subscribe(res => {
-                        this.toastr.success('event Deleted!', 'Success!', { timeOut: 3000 });
+                        this.toastr.success('event Deleted!', 'Success!', { timeOut: 3000 }, { progressBar: true });
                         this.loadevents();
                     })
                       
@@ -101,7 +101,7 @@ export class eventListComponent implements OnInit {
    
                 this.service.deleteMultipleEvent(this.delete)
                     .subscribe(res =>{
-                    this.toastr.success('event Deleted!', 'Success!', { timeOut: 3000 });
+                    this.toastr.success('event Deleted!', 'Success!', { timeOut: 3000 }, { progressBar: true });
                     this.loadevents();
 
                    
@@ -140,13 +140,13 @@ export class eventListComponent implements OnInit {
                     // In memory Db is used 
 
                    
-                        this.toastr.success('event Updated!', 'Success!', { timeOut: 3000 });
+                        this.toastr.success('event Updated!', 'Success!', { timeOut: 3000 }, { progressBar: true });
                         this.loadevents();
                    
                       
                 });
                 }else{
-                   this.toastr.warning('Choose Time greater than from now!', 'Warning!', { timeOut: 3000 });
+                   this.toastr.warning('Choose Time greater than from now!', 'Warning!', { timeOut: 3000 }, { progressBar: true });
                 }
                
             }, (reason) => {
